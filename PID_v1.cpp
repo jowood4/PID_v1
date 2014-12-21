@@ -52,24 +52,24 @@ bool PID::Compute()
    if(timeChange>=SampleTime)
    {
       /*Compute all the working error variables*/
-	  double input = *myInput;
-      double error = *mySetpoint - input;
-      ITerm+= (ki * error);
-      if(ITerm > outMax) ITerm= outMax;
-      else if(ITerm < outMin) ITerm= outMin;
-      double dInput = (input - lastInput);
+	double input = *myInput;
+	double error = *mySetpoint - input;
+	ITerm+= (ki * error);
+	if(ITerm > outMax) ITerm= outMax;
+	else if(ITerm < outMin) ITerm= outMin;
+	double dInput = (input - lastInput);
  
       /*Compute PID Output*/
-      double output = kp * error + ITerm- kd * dInput;
+	double output = kp * error + ITerm- kd * dInput;
       
-	  if(output > outMax) output = outMax;
-      else if(output < outMin) output = outMin;
-	  *myOutput = output;
+	if(output > outMax) output = outMax;
+	else if(output < outMin) output = outMin;
+	*myOutput = output;
 	  
       /*Remember some variables for next time*/
-      lastInput = input;
-      lastTime = now;
-	  return true;
+	lastInput = input;
+	lastTime = now;
+	return true;
    }
    else return false;
 }
@@ -82,6 +82,8 @@ bool PID::Compute()
  ******************************************************************************/ 
 void PID::SetTunings(double Kp, double Ki, double Kd)
 {
+
+Serial.println("here");
    if (Kp<0 || Ki<0 || Kd<0) return;
  
    dispKp = Kp; dispKi = Ki; dispKd = Kd;
